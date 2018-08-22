@@ -31,7 +31,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages (quote (wakatime-mode))))
+ )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -39,6 +39,7 @@
  ;; If there is more than one, they won't work right.
  )
 
+(require 'wakatime-mode)
 (global-wakatime-mode)
 
 (global-set-key [home]		'move-beginning-of-line)
