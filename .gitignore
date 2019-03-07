@@ -1,3 +1,6 @@
-emacs.d/.saves/
-emacs.d/auto-save-list/
-emacs.d/elpa/
+emacs/.saves/
+emacs/auto-save-list/
+emacs/elpa/
+
+emacs/eshell/history
+emacs/transient/history.el
