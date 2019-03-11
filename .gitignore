@@ -1,6 +1,5 @@
 emacs/.saves/
 emacs/auto-save-list/
 emacs/elpa/
-
-emacs/eshell/history
+emacs/eshell/
 emacs/transient/history.el
