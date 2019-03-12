@@ -1,4 +1,4 @@
-alias emacs="emacs-26.1 -nw"
+alias emacs="emacs -nw"
 
 # Loading SSH keys
 OS_FAMILY=`uname -s`
