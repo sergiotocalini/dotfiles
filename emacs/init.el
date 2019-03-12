@@ -66,3 +66,4 @@
 (global-set-key (kbd "C-<right>") 'enlarge-window-horizontally)
 (global-set-key [f1]		  'eshell)
 (global-set-key [f2]		  'magit-status)
+(global-set-key [f3]		  'elpy-check)
