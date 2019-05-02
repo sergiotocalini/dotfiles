@@ -40,7 +40,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages (quote (powerline better-defaults magit elpy)))
  '(tool-bar-mode nil)
- '(wakatime-cli-path "/usr/local/bin/wakatime")
+ '(wakatime-cli-path "/usr/bin/wakatime")
  '(wakatime-python-bin nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
