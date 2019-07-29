@@ -40,7 +40,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages (quote (powerline better-defaults magit elpy)))
  '(tool-bar-mode nil)
- '(wakatime-cli-path "/usr/bin/wakatime")
+ '(wakatime-cli-path "/usr/local/bin/wakatime")
  '(wakatime-python-bin nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -55,6 +55,14 @@
 (elpy-enable)
 ;; (setq python-shell-interpreter "ipython"
 ;;      python-shell-interpreter-args "-i --simple-prompt")
+
+;;; C-f in the magit status buffer invokes the magit-gitflow popup. If you
+;;; would like to use a different key, set the magit-gitflow-popup-key variable
+;;; before loading magit-gitflow
+;; (setq magit-gitflow-popup-key "C-n")
+
+(require 'magit-gitflow)
+(add-hook 'magit-mode-hook 'turn-on-magit-gitflow)
 
 (global-set-key [home]		  'move-beginning-of-line)
 (global-set-key [end]		  'move-end-of-line)
