@@ -58,8 +58,9 @@
 (global-wakatime-mode)
 
 (load-file (expand-file-name
-            (cond ((eq system-type 'windows-nt) "system-windows.el")
-                  ((eq system-type 'gnu/linux) "system-linux.el")
+            (cond ((eq system-type 'windows-nt) "system-windows-nt.el")
+                  ((eq system-type 'gnu/linux) "system-gnu-linux.el")
+                  ((eq system-type 'darwin) "system-darwin.el")
                   (t "system-default.el"))
             user-emacs-directory))
 
