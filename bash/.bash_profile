@@ -23,7 +23,27 @@ if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hstr -- \C-j"'; fi
 # if this is interactive shell, then bind 'kill last command' to Ctrl-x k
 if [[ $- =~ .*i.* ]]; then bind '"\C-xk": "\C-a hstr -k \C-j"'; fi
 
+# Load pyenv automatically by appending
+# the following to ~/.bash_profile:
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
+# The next line updates PATH for the Google Cloud SDK.
+[ -f "${HOME}/google-cloud-sdk/path.bash.inc" ] && . "${HOME}/google-cloud-sdk/path.bash.inc"
+
+# The next line enables shell command completion for gcloud.
+[ -f "${HOME}/google-cloud-sdk/completion.bash.inc" ] && . "${HOME}/google-cloud-sdk/completion.bash.inc"
+
+git_branch() {
+  git branch 2>/dev/null | grep '^*' | colrm 1 2
+}
+
+export BASH_SILENCE_DEPRECATION_WARNING=1
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export PS1="\u@\h:\w\[\033[\$((COLUMNS-10))G\] $RED[\t]\n$ "
