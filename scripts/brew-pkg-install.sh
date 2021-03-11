@@ -9,6 +9,7 @@ packages=(
     flake8
     git
     google-cloud-sdk
+    gpg-suite
     helm
     hstr
     ipython
