@@ -3,7 +3,6 @@
 # Please adapt and uncomment the following lines:
 	name = Sergio Tocalini Joerg
 	email = sergiotocalini@gmail.com
-#	signingkey = 1C3657DA02C3BAE7
 	signingkey = D746144037301843
 [commit]
 	gpgsign = true
