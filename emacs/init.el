@@ -15,7 +15,7 @@
       (file-directory-p (concat basedir f)))
     (add-to-list 'custom-theme-load-path (concat basedir f)))))
 
-(load-theme 'jbeans t)
+(load-theme 'twilight t)
 
 (global-linum-mode t)              ;; enable line numbers globally
 (setq linum-format "%4d \u2502 ")  ;; format line number spacing
@@ -28,34 +28,20 @@
 
 ;; turn off ring bell
 (setq ring-bell-function 'ignore)
+
 ;; turn on visible bell
 (setq visible-bell t)
 
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(column-number-mode t)
- '(custom-safe-themes
-   (quote
-    ("93a0885d5f46d2aeac12bf6be1754faa7d5e28b27926b8aa812840fe7d0b7983" "cd736a63aa586be066d5a1f0e51179239fe70e16a9f18991f6f5d99732cabb32" "fe666e5ac37c2dfcf80074e88b9252c71a22b6f5d2f566df9a7aa4f9bea55ef8" "6d589ac0e52375d311afaa745205abb6ccb3b21f6ba037104d71111e7e76a3fc" "f0dc4ddca147f3c7b1c7397141b888562a48d9888f1595d69572db73be99a024" "6b2636879127bf6124ce541b1b2824800afc49c6ccd65439d6eb987dbf200c36" "4697a2d4afca3f5ed4fdf5f715e36a6cac5c6154e105f3596b44a4874ae52c45" "d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "ebbd4bbb0f017cb09f7a3b1363b83dfde0c5f4970cda2705419457366cd2de91" "3cc2385c39257fed66238921602d8104d8fd6266ad88a006d0a4325336f5ee02" "5b20570781c33819c0b4bcb009305dbe5a9ed12fcedca10e29f1703b5b9d3f96" "732b807b0543855541743429c9979ebfb363e27ec91e82f463c91e68c772f6e3" "a24c5b3c12d147da6cef80938dca1223b7c7f70f2f382b26308eba014dc4833a" "0542fbd0a5a636ff3000d77c5ddf5da6c375976c921efb83960f425e4b399a99" "96998f6f11ef9f551b427b8853d947a7857ea5a578c75aa9c4e7c73fe04d10b4" "4c98274d8b42189a2f4c2b791f79cc4ed593fb9120a77b2da5a5d80cb6c84d87" "a2afb83e8da1d92f83543967fb75a490674a755440d0ce405cf9d9ae008d0018" "980f0adf3421c25edf7b789a046d542e3b45d001735c87057bccb7a411712d09" "a1e99cb36d6235abbe426a0a96fc26c006306f6b9d2a64c2435363350a987b4c" "b9a9204174c09936593d7c6e69ba300486b58999cae067d4af5d5cb180784b42" "848b9a2c0d51fcbfec3ea1259653087c9643a6fc38b86ec87d50cedfc7f7acfb" "019e6b238b15887d2f0b92461b3e18d8e057773cb057d0867d1da71d47acd1f6" "c335adbb7d7cb79bc34de77a16e12d28e6b927115b992bccc109fb752a365c72" "fe20c1ea61a2836a5cea69963865b5b8df8c480ccaf3f11ad7f2e1f543f6c274" default)))
- '(menu-bar-mode nil)
- '(package-selected-packages
-   (quote
-    (lsp-java sass-mode vdiff-magit powershell omnisharp csproj-mode dotnet csharp-mode elpygen treemacs-icons-dired treemacs-magit terraform-mode json-mode lsp-treemacs treepy yaml-mode wakatime-mode magit-gitflow powerline better-defaults magit elpy)))
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(unless package-archive-contents
+  (package-refresh-contents))
 
-(require 'wakatime-mode)
-(global-wakatime-mode)
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file)
+
+;;(require 'wakatime-mode)
+;;(global-wakatime-mode)
 (load-file (expand-file-name
             (cond ((eq system-type 'windows-nt) "system-windows-nt.el")
                   ((eq system-type 'gnu/linux) "system-gnu-linux.el")
@@ -66,6 +52,8 @@
 (elpy-enable)
 ;; (setq python-shell-interpreter "ipython"
 ;;      python-shell-interpreter-args "-i --simple-prompt")
+
+(add-hook 'sh-mode-hook 'flycheck-mode)
 
 ;;; C-f in the magit status buffer invokes the magit-gitflow popup. If you
 ;;; would like to use a different key, set the magit-gitflow-popup-key variable
@@ -87,6 +75,8 @@
 (global-set-key [f1]		  'eshell)
 (global-set-key [f2]		  'magit-status)
 (global-set-key [f3]		  'elpy-check)
+(global-set-key [f4]              'comment-or-uncomment-region)
+(global-set-key [f8]              'treemacs)
 
 (defun dos2unix ()
   "Not exactly but it's easier to remember"
@@ -94,10 +84,6 @@
   (set-buffer-file-coding-system 'unix 't) )
 
 ;; (setq url-proxy-services '(("http" . "force-proxy-eur.pac.schneider-electric.com:80")("https" . "force-proxy-eur.pac.schneider-electric.com:80")))
-
-;; (require 'treemacs)
-;; (setq treemacs-indentation-string (propertize "  " 'face 'font-lock-comment-face)
-;;      treemacs-indentation 1)
 
 (require 'use-package)
 (use-package treemacs
@@ -120,8 +106,8 @@
           treemacs-follow-after-init             t
           treemacs-git-command-pipe              ""
           treemacs-goto-tag-strategy             'refetch-index
-          treemacs-indentation                   2
-          treemacs-indentation-string            " "
+          treemacs-indentation                   1
+          treemacs-indentation-string            (propertize "⫶" 'face 'font-lock-comment-face)
           treemacs-is-never-other-window         nil
           treemacs-max-git-entries               5000
           treemacs-missing-project-action        'ask
@@ -143,7 +129,10 @@
           treemacs-space-between-root-nodes      t
           treemacs-tag-follow-cleanup            t
           treemacs-tag-follow-delay              1.5
-          treemacs-width                         35)
+	  treemacs-user-mode-line-format         nil
+          treemacs-user-header-line-format       nil
+          treemacs-width                         40
+	  treemacs-workspace-switch-cleanup      nil)
 
     ;; The default width and height of the icons is 22 pixels. If you are
     ;; using a Hi-DPI display, uncomment this to double the icon size.
@@ -158,22 +147,35 @@
        (treemacs-git-mode 'deferred))
       (`(t . _)
        (treemacs-git-mode 'simple))))
-  :bind
-  (:map global-map
-        ("C-x t s"   . treemacs-select-window)
-        ("C-x t 1"   . treemacs-delete-other-windows)
-        ("C-x t t"   . treemacs)
-        ("C-x t B"   . treemacs-bookmark)
-        ("C-x t C-t" . treemacs-find-file)
-        ("C-x t M-t" . treemacs-find-tag))
-)
+    :bind
+    (:map global-map
+          ("M-0"       . treemacs-select-window)
+          ("C-x t 1"   . treemacs-delete-other-windows)
+          ("C-x t t"   . treemacs)
+          ("C-x t B"   . treemacs-bookmark)
+          ("C-x t C-t" . treemacs-find-file)
+          ("C-x t M-t" . treemacs-find-tag)))
 
+(use-package treemacs-evil
+  :after (treemacs evil)
+  :ensure t)
 
 ;; Projectile integration
 (use-package treemacs-projectile
-  :after treemacs projectile
+  :after (treemacs projectile)
   :ensure t)
 
+(use-package treemacs-icons-dired
+  :after (treemacs dired)
+  :ensure t
+  :config (treemacs-icons-dired-mode))
+
 (use-package treemacs-magit
-  :after treemacs magit
+  :after (treemacs magit)
   :ensure t)
+
+(use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
+  :after (treemacs persp-mode) ;;or perspective vs. persp-mode
+  :ensure t
+  :config (treemacs-set-scope-type 'Perspectives))
+  
