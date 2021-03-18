@@ -7,6 +7,10 @@ if [ ${OS_FAMILY} == "Darwin" ]; then
     [[ ${ACTION} =~ ALL|brew  ]] && "${SCRIPT_PATH}/scripts/brew-pkg-install.sh"
     [[ ${ACTION} =~ ALL|emacs ]] && "${SCRIPT_PATH}/scripts/emacs-pkg-install.sh"
     if [[ ${ACTION} =~ ALL|configs ]]; then
+	defaults write com.apple.finder ShowPathbar -bool true
+	defaults write com.apple.finder ShowStatusBar -bool true
+	defaults write com.apple.screencapture location ~/Screenshots
+	
 	ln -sf  "${SCRIPT_PATH}/bash/.bash_profile"  ~/.bash_profile
 	ln -sf  "${SCRIPT_PATH}/ssh/config"          ~/.ssh/config
 	ln -sfn "${SCRIPT_PATH}/git"                 ~/.config/git
