@@ -13,7 +13,7 @@ alias emacs="emacs -nw"
 # Loading SSH keys
 OS_FAMILY=`uname -s`
 if [[ ${OS_FAMILY} == "Darwin" ]]; then
-   find -E ~/.ssh/keys/* -regex '.*.(id_rsa|id_dsa)' 2>/dev/null | xargs -r keychain --agents ssh --inherit any
+   find -E ~/.ssh/keys/* -regex '.*.(id_rsa|id_dsa)' 2>/dev/null | xargs keychain --agents ssh --inherit any
 else
    find ~/.ssh/keys/* -regex ".*.\(id_rsa\|id_dsa\)" 2>/dev/null | xargs -r keychain --agents ssh --inherit any
 fi
