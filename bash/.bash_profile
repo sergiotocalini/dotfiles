@@ -1,5 +1,6 @@
 COLOR_OFF=$(tput sgr0)
 COLOR_BOLD=$(tput bold)
+COLOR_BLINK=$(tput blink)
 COLOR_RED=$(tput setaf 1)
 COLOR_GREEN=$(tput setaf 2)
 COLOR_YELLOW=$(tput setaf 3)
@@ -59,4 +60,4 @@ git_branch() {
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export PS1="\n\u@${COLOR_BOLD}${COLOR_RED}\h${COLOR_OFF}:${COLOR_GREEN}\w${COLOR_OFF}\[\033[\$((COLUMNS-10))G\] [\t]${COLOR_OFF}\n$ "
+export PS1="\n\u@${COLOR_BOLD}${COLOR_RED}\h${COLOR_OFF}:${COLOR_GREEN}\w${COLOR_OFF}\[\033[\$((COLUMNS-12))G\] $(tput setab 7)$(tput setaf 0)[ \t ]${COLOR_OFF}\n$ "
