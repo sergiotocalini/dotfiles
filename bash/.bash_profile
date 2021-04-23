@@ -1,3 +1,12 @@
+COLOR_OFF=$(tput sgr0)
+COLOR_BOLD=$(tput bold)
+COLOR_RED=$(tput setaf 1)
+COLOR_GREEN=$(tput setaf 2)
+COLOR_YELLOW=$(tput setaf 3)
+COLOR_BLUE=$(tput setaf 4)
+COLOR_MAGENTA=$(tput setaf 5)
+COLOR_CYAN=$(tput setaf 6)
+
 alias emacs="emacs -nw"
 
 # Loading SSH keys
@@ -7,7 +16,6 @@ if [[ ${OS_FAMILY} == "Darwin" ]]; then
 else
    find ~/.ssh/keys -regex ".*.\(id_rsa\|id_dsa\)" | xargs keychain --agents ssh --inherit any
 fi
-. ~/.keychain/$HOSTNAME-sh
 
 # HSTR configuration - add this to ~/.bashrc
 alias hh=hstr                    # hh to be alias for hstr
@@ -46,4 +54,4 @@ git_branch() {
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export PS1="\u@\h:\w\[\033[\$((COLUMNS-10))G\] $RED[\t]\n$ "
+export PS1="\n\u@${COLOR_BOLD}${COLOR_RED}\h${COLOR_OFF}:${COLOR_GREEN}\w${COLOR_OFF}\[\033[\$((COLUMNS-10))G\] [\t]${COLOR_OFF}\n$ "
