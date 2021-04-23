@@ -12,9 +12,9 @@ alias emacs="emacs -nw"
 # Loading SSH keys
 OS_FAMILY=`uname -s`
 if [[ ${OS_FAMILY} == "Darwin" ]]; then
-   find -E ~/.ssh/keys -regex '.*.(id_rsa|id_dsa)' | xargs keychain --agents ssh --inherit any
+   find -E ~/.ssh/keys/* -regex '.*.(id_rsa|id_dsa)' | xargs keychain --agents ssh --inherit any
 else
-   find ~/.ssh/keys -regex ".*.\(id_rsa\|id_dsa\)" | xargs keychain --agents ssh --inherit any
+   find ~/.ssh/keys/* -regex ".*.\(id_rsa\|id_dsa\)" | xargs keychain --agents ssh --inherit any
 fi
 
 # HSTR configuration - add this to ~/.bashrc
@@ -30,6 +30,11 @@ export PROMPT_COMMAND="history -a; history -n; ${PROMPT_COMMAND}"
 if [[ $- =~ .*i.* ]]; then bind '"\C-r": "\C-a hstr -- \C-j"'; fi
 # if this is interactive shell, then bind 'kill last command' to Ctrl-x k
 if [[ $- =~ .*i.* ]]; then bind '"\C-xk": "\C-a hstr -k \C-j"'; fi
+
+# Load jenv automatically by appending
+# the following to ~/.bash_profile
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
 
 # Load pyenv automatically by appending
 # the following to ~/.bash_profile:
