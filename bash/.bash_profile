@@ -1,21 +1,27 @@
-COLOR_OFF=$(tput sgr0)
-COLOR_BOLD=$(tput bold)
-COLOR_BLINK=$(tput blink)
-COLOR_RED=$(tput setaf 1)
-COLOR_GREEN=$(tput setaf 2)
-COLOR_YELLOW=$(tput setaf 3)
-COLOR_BLUE=$(tput setaf 4)
-COLOR_MAGENTA=$(tput setaf 5)
-COLOR_CYAN=$(tput setaf 6)
+COLOR_OFF="\[$(tput sgr0)\]"
+COLOR_BOLD="\[$(tput bold)\]"
+COLOR_BLINK="\[$(tput blink)\]"
+COLOR_RED="\[$(tput setaf 1)\]"
+COLOR_GREEN="\[$(tput setaf 2)\]"
+COLOR_YELLOW="\[$(tput setaf 3)\]"
+COLOR_BLUE="\[$(tput setaf 4)\]"
+COLOR_MAGENTA="\[$(tput setaf 5)\]"
+COLOR_CYAN="\[$(tput setaf 6)\]"
 
 alias emacs="emacs -nw"
+alias ll="ls -alFh"
+alias myip="curl \"ipinfo.io/ip\""
+alias k="kubectl"
+
+source <(kubectl completion bash)
 
 # Loading SSH keys
 OS_FAMILY=`uname -s`
 if [[ ${OS_FAMILY} == "Darwin" ]]; then
-   find -E ~/.ssh/keys/* -regex '.*.(id_rsa|id_dsa)' 2>/dev/null | xargs keychain --agents ssh --inherit any
+    find -E ~/.ssh/keys/* -regex '.*.(id_rsa|id_dsa)' 2>/dev/null | xargs keychain --agents ssh --inherit any
 else
-   find ~/.ssh/keys/* -regex ".*.\(id_rsa\|id_dsa\)" 2>/dev/null | xargs -r keychain --agents ssh --inherit any
+    find ~/.ssh/keys/* -regex ".*.\(id_rsa\|id_dsa\)" 2>/dev/null | xargs -r keychain --eval --agents ssh
+    . ~/.keychain/${HOSTNAME}-sh
 fi
 
 # HSTR configuration - add this to ~/.bashrc
@@ -41,23 +47,31 @@ eval "$(jenv init -)"
 # the following to ~/.bash_profile:
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
 
 # The next line updates PATH for the Google Cloud SDK.
-[ -f "${HOME}/google-cloud-sdk/path.bash.inc" ] && . "${HOME}/google-cloud-sdk/path.bash.inc"
-
 # The next line enables shell command completion for gcloud.
-[ -f "${HOME}/google-cloud-sdk/completion.bash.inc" ] && . "${HOME}/google-cloud-sdk/completion.bash.inc"
+GOOGLE_SDK="/usr/local/Caskroom/google-cloud-sdk/latest"
+[ -f "${GOOGLE_SDK}/google-cloud-sdk/path.bash.inc"       ] && . "${GOOGLE_SDK}/google-cloud-sdk/path.bash.inc"
+[ -f "${GOOGLE_SDK}/google-cloud-sdk/completion.bash.inc" ] && . "${GOOGLE_SDK}/google-cloud-sdk/completion.bash.inc"
 
-git_branch() {
-  git branch 2>/dev/null | grep '^*' | colrm 1 2
+# MySQL client
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+
+get_workspace() {
+    output=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
+    [ -n "${output}" ] && echo "(${output}) "
 }
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
-export PS1="\n\u@${COLOR_BOLD}${COLOR_RED}\h${COLOR_OFF}:${COLOR_GREEN}\w${COLOR_OFF}\[\033[\$((COLUMNS-12))G\] $(tput setab 7)$(tput setaf 0)[ \t ]${COLOR_OFF}\n$ "
+export PS1="\n\u@${COLOR_BOLD}${COLOR_RED}\h${COLOR_OFF}:${COLOR_GREEN}\w${COLOR_OFF}\[\033[\$((COLUMNS-12))G\] $(tput setab 7)$(tput setaf 0)[ \t ]${COLOR_OFF}\n${COLOR_BLINK}${COLOR_YELLOW}\$(get_workspace)${COLOR_OFF}$ "
+
+neofetch

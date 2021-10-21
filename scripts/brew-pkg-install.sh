@@ -1,10 +1,12 @@
 #!/bin/sh
 
 pkg_name="${1}"
-packages=( 
+packages=(
+    ansible
     awscli
     azure-cli
     bash
+    dbeaver-community
     emacs
     flake8
     git
@@ -13,17 +15,25 @@ packages=(
     helm
     hstr
     ipython
+    isort
     istioctl
     iterm2
     keychain
+    neofetch
+    octant
     pyenv
     pylint
     python
-    shellcheck
+    rectangle
+    shellcheck    
     terraform
-    tree
+    tflint
+    the-unarchiver
+    tree    
+    tunnelblick
     pyenv-virtualenv
     wakatime-cli
+    vagrant
 )
 
 function brew_install_or_upgrade {

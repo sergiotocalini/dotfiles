@@ -1,2 +1,2 @@
-(wakatime-cli-path "/usr/local/bin/wakatime")
-(wakatime-python-bin nil))
+(setq wakatime-cli-path   "/usr/local/bin/wakatime")
+(setq wakatime-python-bin nil))

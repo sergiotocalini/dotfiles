@@ -19,6 +19,7 @@ packages=(
     flycheck
     jbeans-theme
     json-mode
+    kubernetes
     lsp-java
     lsp-treemacs
     magit
@@ -26,6 +27,9 @@ packages=(
     omnisharp
     powerline
     powershell
+    pyenv-mode
+    dggdfgdfdgfgdf
+    python-isort
     sass-mode
     terraform-mode
     treemacs-evil

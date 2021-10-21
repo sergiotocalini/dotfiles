@@ -16,3 +16,5 @@
 [alias]
 	pr = "!f() { exec vsts code pr \"$@\"; }; f"
 	repo = "!f() { exec vsts code repo \"$@\"; }; f"
+[github]
+	user = sergiotocalini@gmail.com

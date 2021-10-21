@@ -40,8 +40,8 @@
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
-;;(require 'wakatime-mode)
-;;(global-wakatime-mode)
+(require 'wakatime-mode)
+(global-wakatime-mode)
 (load-file (expand-file-name
             (cond ((eq system-type 'windows-nt) "system-windows-nt.el")
                   ((eq system-type 'gnu/linux) "system-gnu-linux.el")
@@ -50,8 +50,12 @@
             user-emacs-directory))
 
 (elpy-enable)
-;; (setq python-shell-interpreter "ipython"
-;;      python-shell-interpreter-args "-i --simple-prompt")
+(setq python-shell-interpreter "ipython"
+      python-shell-interpreter-args "-i --simple-prompt")
+
+(require 'pyenv-mode)
+(require 'python-isort)
+(add-hook 'python-mode-hook 'python-isort-on-save-mode)
 
 (add-hook 'sh-mode-hook 'flycheck-mode)
 
@@ -178,4 +182,19 @@
   :after (treemacs persp-mode) ;;or perspective vs. persp-mode
   :ensure t
   :config (treemacs-set-scope-type 'Perspectives))
-  
+
+(use-package kubernetes
+  :ensure t
+  :commands (kubernetes-overview)
+  :config
+  (setq kubernetes-poll-frequency 3600
+        kubernetes-redraw-frequency 3600))
+
+(defun projectile-pyenv-mode-set ()
+  "Set pyenv version matching project name."
+  (let ((project (projectile-project-name)))
+    (if (member project (pyenv-mode-versions))
+        (pyenv-mode-set project)
+      (pyenv-mode-unset))))
+
+(add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
