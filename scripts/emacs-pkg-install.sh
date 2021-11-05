@@ -28,7 +28,6 @@ packages=(
     powerline
     powershell
     pyenv-mode
-    dggdfgdfdgfgdf
     python-isort
     sass-mode
     terraform-mode

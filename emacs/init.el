@@ -190,6 +190,16 @@
   (setq kubernetes-poll-frequency 3600
         kubernetes-redraw-frequency 3600))
 
+(use-package markdown-preview-mode
+  :ensure t
+  :if (boundp 'mdcommand)
+  :init
+  (setq markdown-preview-auto-open nil)
+  :custom
+  (markdown-preview-host "0.0.0.0")
+  (markdown-preview-http-host "0.0.0.0"))
+
+
 (defun projectile-pyenv-mode-set ()
   "Set pyenv version matching project name."
   (let ((project (projectile-project-name)))

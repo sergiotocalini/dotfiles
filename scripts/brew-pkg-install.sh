@@ -9,6 +9,7 @@ packages=(
     dbeaver-community
     emacs
     flake8
+    gimp
     git
     google-cloud-sdk
     gpg-suite
@@ -21,19 +22,25 @@ packages=(
     keychain
     neofetch
     octant
+    openssl
     pyenv
+    pyenv-virtualenv
     pylint
     python
+    readline
     rectangle
     shellcheck    
-    terraform
+    sqlite3
+    tfenv
     tflint
+    tfsec
     the-unarchiver
     tree    
     tunnelblick
-    pyenv-virtualenv
-    wakatime-cli
     vagrant
+    wakatime-cli
+    xz
+    zlib
 )
 
 function brew_install_or_upgrade {
