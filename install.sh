@@ -10,6 +10,7 @@ if [ ${OS_FAMILY} == "Darwin" ]; then
 	defaults write com.apple.finder ShowPathbar -bool true
 	defaults write com.apple.finder ShowStatusBar -bool true
 	defaults write com.apple.screencapture location ~/Screenshots
+	defaults write com.apple.dock no-bouncing -bool FALSE
 	
 	ln -sf  "${SCRIPT_PATH}/bash/.bash_profile"  ~/.bash_profile
 	ln -sf  "${SCRIPT_PATH}/ssh/config"          ~/.ssh/config

@@ -6,11 +6,16 @@ packages=(
     awscli
     azure-cli
     bash
+    bash-completion
+    curl
     dbeaver-community
+    dotnet
     emacs
     flake8
     gimp
     git
+    gitversion
+    go
     google-cloud-sdk
     gpg-suite
     helm
@@ -19,26 +24,37 @@ packages=(
     isort
     istioctl
     iterm2
+    jenv
+    jq
     keychain
+    kubectl
+    mysql-shell
     neofetch
     octant
+    odbc-manager
+    orange
     openssl
+    putty
     pyenv
     pyenv-virtualenv
     pylint
     python
     readline
     rectangle
+    royal-tsx
     shellcheck    
     sqlite3
     tfenv
     tflint
     tfsec
     the-unarchiver
-    tree    
+    tree
+    trivy
     tunnelblick
+    unixodbc
     vagrant
     wakatime-cli
+    wget
     xz
     zlib
 )

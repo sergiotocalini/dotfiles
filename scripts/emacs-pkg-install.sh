@@ -17,6 +17,8 @@ packages=(
     elpy
     elpygen
     flycheck
+    go-complete
+    go-mode
     jbeans-theme
     json-mode
     kubernetes
@@ -30,6 +32,7 @@ packages=(
     pyenv-mode
     python-isort
     sass-mode
+    shanty-themes
     terraform-mode
     treemacs-evil
     treemacs-icons-dired

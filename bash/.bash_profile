@@ -13,7 +13,7 @@ alias ll="ls -alFh"
 alias myip="curl \"ipinfo.io/ip\""
 alias k="kubectl"
 
-source <(kubectl completion bash)
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
 # Loading SSH keys
 OS_FAMILY=`uname -s`

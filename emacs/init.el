@@ -15,7 +15,10 @@
       (file-directory-p (concat basedir f)))
     (add-to-list 'custom-theme-load-path (concat basedir f)))))
 
-(load-theme 'twilight t)
+(load-theme 'sanityinc-tomorrow-night t)
+
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file)
 
 (global-linum-mode t)              ;; enable line numbers globally
 (setq linum-format "%4d \u2502 ")  ;; format line number spacing
@@ -32,13 +35,15 @@
 ;; turn on visible bell
 (setq visible-bell t)
 
+(setq-default
+ js-indent-level 2
+ js2-basic-offset 2
+ )
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (unless package-archive-contents
   (package-refresh-contents))
-
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file)
 
 (require 'wakatime-mode)
 (global-wakatime-mode)
@@ -49,9 +54,6 @@
                   (t "system-default.el"))
             user-emacs-directory))
 
-(elpy-enable)
-(setq python-shell-interpreter "ipython"
-      python-shell-interpreter-args "-i --simple-prompt")
 
 (require 'pyenv-mode)
 (require 'python-isort)
@@ -199,7 +201,6 @@
   (markdown-preview-host "0.0.0.0")
   (markdown-preview-http-host "0.0.0.0"))
 
-
 (defun projectile-pyenv-mode-set ()
   "Set pyenv version matching project name."
   (let ((project (projectile-project-name)))
@@ -208,3 +209,22 @@
       (pyenv-mode-unset))))
 
 (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+(put 'downcase-region 'disabled nil)
+
+(elpy-enable)
+(use-package elpy
+  :ensure t
+  :config (setq python-shell-interpreter "python3")
+  :init
+  (elpy-enable))
+
+(setenv "PYTHONIOENCODING" "utf-8")
+(add-to-list 'process-coding-system-alist '("python" . (utf-8 . utf-8)))
+(add-to-list 'process-coding-system-alist '("elpy" . (utf-8 . utf-8)))
+(add-to-list 'process-coding-system-alist '("flake8" . (utf-8 . utf-8)))
+
+(autoload 'go-mode "go-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
+
+(require 'go-complete)
+(add-hook 'completion-at-point-functions 'go-complete-at-point)
