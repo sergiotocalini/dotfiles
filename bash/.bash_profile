@@ -1,3 +1,5 @@
+[ -n "$TERM" ] && export TERM=xterm 
+
 COLOR_OFF="\[$(tput sgr0)\]"
 COLOR_BOLD="\[$(tput bold)\]"
 COLOR_BLINK="\[$(tput blink)\]"
@@ -12,6 +14,7 @@ alias emacs="emacs -nw"
 alias ll="ls -alFh"
 alias myip="curl \"ipinfo.io/ip\""
 alias k="kubectl"
+alias t="tmux attach || tmux new-session"
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
@@ -22,7 +25,7 @@ OS_FAMILY=`uname -s`
 if [[ ${OS_FAMILY} == "Darwin" ]]; then
     find -E ~/.ssh/keys/* -regex '.*.(id_rsa|id_dsa)' 2>/dev/null | xargs -0 keychain --agents ssh --inherit any
 else
-    find ~/.ssh/keys/* -regex ".*.\(id_rsa\|id_dsa\)" 2>/dev/null | xargs -r keychain --eval --agents ssh
+    find ~/.ssh/keys/* -regex ".*.\(id_rsa\|id_dsa\)" 2>/dev/null | xargs -0 keychain --agents ssh --inherit any
     . ~/.keychain/${HOSTNAME}-sh
 fi
 
@@ -76,4 +79,6 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PS1="\n\u@${COLOR_BOLD}${COLOR_RED}\h${COLOR_OFF}:${COLOR_GREEN}\w${COLOR_OFF}\[\033[\$((COLUMNS-12))G\] $(tput setab 7)$(tput setaf 0)[ \t ]${COLOR_OFF}\n${COLOR_BLINK}${COLOR_YELLOW}\$(get_workspace)${COLOR_OFF}$ "
 
-neofetch
+if [ -t 0 ]; then
+   neofetch
+fi
