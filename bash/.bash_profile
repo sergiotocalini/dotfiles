@@ -15,10 +15,12 @@ alias k="kubectl"
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 
+export PATH="/opt/homebrew/bin:$PATH"
+
 # Loading SSH keys
 OS_FAMILY=`uname -s`
 if [[ ${OS_FAMILY} == "Darwin" ]]; then
-    find -E ~/.ssh/keys/* -regex '.*.(id_rsa|id_dsa)' 2>/dev/null | xargs keychain --agents ssh --inherit any
+    find -E ~/.ssh/keys/* -regex '.*.(id_rsa|id_dsa)' 2>/dev/null | xargs -0 keychain --agents ssh --inherit any
 else
     find ~/.ssh/keys/* -regex ".*.\(id_rsa\|id_dsa\)" 2>/dev/null | xargs -r keychain --eval --agents ssh
     . ~/.keychain/${HOSTNAME}-sh

@@ -1,2 +1,2 @@
 ;; Darwin OS
-(setq wakatime-cli-path "/usr/local/bin/wakatime-cli")
+(setq wakatime-cli-path "/opt/homebrew/bin/wakatime-cli")

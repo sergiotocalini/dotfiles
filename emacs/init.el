@@ -15,7 +15,17 @@
       (file-directory-p (concat basedir f)))
     (add-to-list 'custom-theme-load-path (concat basedir f)))))
 
-(load-theme 'sanityinc-tomorrow-night t)
+;; (load-theme 'doom-spacegrey t)
+
+(use-package solaire-mode
+  :ensure t
+  :config
+  (solaire-global-mode +1))
+
+(use-package vscode-dark-plus-theme
+  :ensure t
+  :config
+  (load-theme 'vscode-dark-plus t))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
@@ -40,6 +50,8 @@
  js2-basic-offset 2
  )
 
+(setq base16-theme-256-color-source "base16-shell")
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (unless package-archive-contents
@@ -54,7 +66,7 @@
                   (t "system-default.el"))
             user-emacs-directory))
 
-
+(require 'bicep-mode)
 (require 'pyenv-mode)
 (require 'python-isort)
 (add-hook 'python-mode-hook 'python-isort-on-save-mode)
@@ -228,3 +240,27 @@
 
 (require 'go-complete)
 (add-hook 'completion-at-point-functions 'go-complete-at-point)
+
+
+;;(defvar bootstrap-version)
+;;(let ((bootstrap-file
+;;       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+;;      (bootstrap-version 5))
+;;  (unless (file-exists-p bootstrap-file)
+;;    (with-current-buffer
+;;        (url-retrieve-synchronously
+;;         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+;;         'silent 'inhibit-cookies)
+;;      (goto-char (point-max))
+;;      (eval-print-last-sexp)))
+;;  (load bootstrap-file nil 'nomessage))
+
+
+;;(setq package-enable-at-startup nil)
+
+;;(bicep-mode :type git :host github :repo "christiaan-janssen/bicep-mode")
+
+;;(use-package "bicep-mode"
+;;  :load-path "~/.emacs.d/lisp/bicep-mode"
+;;  :ensure t)
+
