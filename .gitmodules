@@ -1,3 +1,7 @@
 [submodule "emacs/lisp/bicep-mode"]
 	path = emacs/lisp/bicep-mode
 	url = https://github.com/christiaan-janssen/bicep-mode.git
+
+[submodule "emacs/themes/color-theme-sanityinc-tomorrow"]
+        path = emacs/themes/color-theme-sanityinc-tomorrow
+        url = https://github.com/purcell/color-theme-sanityinc-tomorrow.git
