@@ -22,15 +22,17 @@
   :config
   (solaire-global-mode +1))
 
-(use-package vscode-dark-plus-theme
-  :ensure t
-  :config
-  (load-theme 'vscode-dark-plus t))
+;; (use-package vscode-dark-plus-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'vscode-dark-plus t))
+
+(load-theme 'nord t)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file)
 
-(global-linum-mode t)              ;; enable line numbers globally
+(global-display-line-numbers-mode t) ;; (global-linum-mode t)              ;; enable line numbers globally
 (setq linum-format "%4d \u2502 ")  ;; format line number spacing
 (setq backup-directory-alist `(("." . "~/.emacs.d/.saves")))
 (setq backup-by-copying t)
@@ -50,7 +52,7 @@
  js2-basic-offset 2
  )
 
-(setq base16-theme-256-color-source "base16-shell")
+;;(setq base16-theme-256-color-source "base16-shell")
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -70,7 +72,8 @@
 (require 'pyenv-mode)
 (require 'python-isort)
 (add-hook 'python-mode-hook 'python-isort-on-save-mode)
-
+(add-hook 'python-mode-hook 'flycheck-mode)
+(add-hook 'flycheck-mode-hook #'flycheck-virtualenv-setup)
 (add-hook 'sh-mode-hook 'flycheck-mode)
 
 ;;; C-f in the magit status buffer invokes the magit-gitflow popup. If you
@@ -149,7 +152,10 @@
           treemacs-tag-follow-delay              1.5
 	  treemacs-user-mode-line-format         nil
           treemacs-user-header-line-format       nil
-          treemacs-width                         40
+	  treemacs-wide-toggle-width             70
+          treemacs-width                         55
+	  treemacs-width-increment               1
+          treemacs-width-is-initially-locked     t
 	  treemacs-workspace-switch-cleanup      nil)
 
     ;; The default width and height of the icons is 22 pixels. If you are
@@ -192,8 +198,8 @@
   :after (treemacs magit)
   :ensure t)
 
-(use-package treemacs-persp ;;treemacs-perspective if you use perspective.el vs. persp-mode
-  :after (treemacs persp-mode) ;;or perspective vs. persp-mode
+(use-package treemacs-persp    ;; treemacs-perspective if you use perspective.el vs. persp-mode
+  :after (treemacs persp-mode) ;; or perspective vs. persp-mode
   :ensure t
   :config (treemacs-set-scope-type 'Perspectives))
 
@@ -241,7 +247,6 @@
 (require 'go-complete)
 (add-hook 'completion-at-point-functions 'go-complete-at-point)
 
-
 ;;(defvar bootstrap-version)
 ;;(let ((bootstrap-file
 ;;       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -255,7 +260,6 @@
 ;;      (eval-print-last-sexp)))
 ;;  (load bootstrap-file nil 'nomessage))
 
-
 ;;(setq package-enable-at-startup nil)
 
 ;;(bicep-mode :type git :host github :repo "christiaan-janssen/bicep-mode")
@@ -263,4 +267,11 @@
 ;;(use-package "bicep-mode"
 ;;  :load-path "~/.emacs.d/lisp/bicep-mode"
 ;;  :ensure t)
+
+(use-package docker
+  :ensure t
+  :bind ("C-c d" . docker))
+
+(add-hook 'eshell-preoutput-filter-functions
+          'ansi-color-apply)
 

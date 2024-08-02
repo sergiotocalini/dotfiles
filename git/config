@@ -3,7 +3,9 @@
 # Please adapt and uncomment the following lines:
 	name = Sergio Tocalini Joerg
 	email = sergiotocalini@gmail.com
-	signingkey = D746144037301843
+	signingkey = DECD95718D63F3A4
+[gpg]
+        program = gpg
 [commit]
 	gpgsign = true
 [filter "lfs"]

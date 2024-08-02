@@ -1,4 +1,4 @@
-[ -n "$TERM" ] && export TERM=xterm 
+[ -z "$TERM" ] && export TERM=xterm 
 
 COLOR_OFF="\[$(tput sgr0)\]"
 COLOR_BOLD="\[$(tput bold)\]"
@@ -15,10 +15,15 @@ alias ll="ls -alFh"
 alias myip="curl \"ipinfo.io/ip\""
 alias k="kubectl"
 alias t="tmux attach || tmux new-session"
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+export PATH="/opt/homebrew/opt/mysql-client/bin:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+export DOTNET_ROOT="/opt/homebrew/opt/dotnet/libexec"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/mysql-client/lib/pkgconfig"
 
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
-
-export PATH="/opt/homebrew/bin:$PATH"
+[ -f /opt/homebrew/etc/bash_completion ] && . /opt/homebrew/etc/bash_completion
 
 # Loading SSH keys
 OS_FAMILY=`uname -s`
@@ -56,6 +61,10 @@ eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+# Load rbenv automatically by appending
+# the following to ~/.bash_profile:
+eval "$(rbenv init - bash)"
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
@@ -66,8 +75,9 @@ GOOGLE_SDK="/usr/local/Caskroom/google-cloud-sdk/latest"
 [ -f "${GOOGLE_SDK}/google-cloud-sdk/path.bash.inc"       ] && . "${GOOGLE_SDK}/google-cloud-sdk/path.bash.inc"
 [ -f "${GOOGLE_SDK}/google-cloud-sdk/completion.bash.inc" ] && . "${GOOGLE_SDK}/google-cloud-sdk/completion.bash.inc"
 
-# MySQL client
-export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+# The next line enables shell command completion for yandex-cloud-cli.
+YANDEX_SDK="/opt/homebrew/Caskroom/yandex-cloud-cli/0.106.0"
+[ -f "${YANDEX_SDK}/yandex-cloud-cli/completion.bash.inc" ] && . "${YANDEX_SDK}/yandex-cloud-cli/completion.bash.inc"
 
 get_workspace() {
     output=$(git branch 2>/dev/null | grep '^*' | colrm 1 2)
@@ -82,3 +92,5 @@ export PS1="\n\u@${COLOR_BOLD}${COLOR_RED}\h${COLOR_OFF}:${COLOR_GREEN}\w${COLOR
 if [ -t 0 ]; then
    neofetch
 fi
+
+complete -C /opt/homebrew/bin/mc mc

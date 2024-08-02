@@ -2,3 +2,7 @@ Host *
    ForwardAgent			yes
    ForwardX11Trusted		yes
    ForwardX11			yes
+
+Host 192.168.122.*
+   ProxyCommand ssh stocalini@192.168.0.10 -W %h:%p
+#   ProxyCommand ncat --proxy-type socks5 --proxy-auth "dante:br66QUsUN93aEcXCMX4JsbaJ" --proxy "192.168.0.10:1080" %h %p
